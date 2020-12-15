@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text, ImageBackground, Button, Image, Alert } from 'react-native';
-import  ImagePicker from 'react-native-image-picker';
+// import  ImagePicker from 'react-native-image-picker';
 import { Entypo } from '@expo/vector-icons';
 // 引入css样式
 import styles from '../../styles/common.js';
-import colors from '../../styles/color.js';
+import colors from '../../styles/color.js'; 
+import * as ImagePicker from 'expo-image-picker'
 
 const img_local = require('../../assets/image/bg.png')
 
@@ -13,42 +14,23 @@ class IndexPage extends Component {
         super(props);
         //保存图片信息
         this.state = {
-            avatarSource: {},
+            image: {},
         }
     }
 
     // 选择图片或相册
-    onClickChoosePicture = () => {
-        const options = {
-            title: '',
-            cancelButtonTitle: '取消',
-            takePhotoButtonTitle: '拍照',
-            chooseFromLibraryButtonTitle: '选择照片',
-            storageOptions: {
-                skipBackup: true,
-                path: 'images',
-            }
-        };
-
-
-        ImagePicker.showImagePicker(options, (response) => {
-            console.log('Response = ', response);
-
-            if (response.didCancel) {
-                console.log('User cancelled image picker');
-            } else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            } else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
-            } else {
-                const source = { uri: response.uri };
-                this.setState({
-                    avatarSource: source,
-                });
-                console.warn(this.state.avatarSource.uri);
-            }
+    _pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+          allowsEditing: true,
+          aspect: [4, 3],
         });
-    }
+    
+        console.log(result);
+    
+        if (!result.cancelled) {
+          this.setState({ image: result.uri });
+        }
+      };
 
     //上传图片
     UploadVedio = () => {
@@ -76,7 +58,9 @@ class IndexPage extends Component {
 
 
     render() {
-        return (
+        let { image } = this.state;
+
+        return (    
             <View style={styles.container}>
                 <ImageBackground source={img_local} style={styles.image}>
                     {/*展示图片*/}
@@ -87,7 +71,7 @@ class IndexPage extends Component {
                             <Entypo name="folder-video" size={32} color={colors.blue} />
                             <Button
                                 title="选择视频"
-                                onPress={() => this.onClickChoosePicture()}
+                                onPress={this._pickImage}
                             />
                         </View>
 

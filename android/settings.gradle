@@ -1,9 +1,5 @@
 rootProject.name = 'camera'
 
-include ':react-native-image-picker'
-    
-include ':react-native-image-picker'
-project(':react-native-image-picker').projectDir = new File(settingsDir, '../node_modules/react-native-image-picker/android')
 apply from: '../node_modules/react-native-unimodules/gradle.groovy'
 includeUnimodulesProjects()
 
