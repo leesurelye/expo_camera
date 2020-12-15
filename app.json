@@ -1,10 +1,17 @@
 {
   "name": "camera",
-  "displayName": "camera",
+  "displayName": "camera,this is a common application for recording vedio",
   "expo": {
     "name": "camera",
     "slug": "camera",
     "version": "1.0.0",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "userInterfaceStyle": "light"
+    },
+    "android": {
+      "userInterfaceStyle": "dark"
+    },
     "assetBundlePatterns": [
       "**/*"
     ]

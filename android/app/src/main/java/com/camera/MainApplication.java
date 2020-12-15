@@ -33,6 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
     new BasePackageList().getPackageList()
   );
 
+  
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
     public boolean getUseDeveloperSupport() {
