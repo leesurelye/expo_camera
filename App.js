@@ -1,27 +1,28 @@
 import React from 'react';
 import { Alert, Image, Text, TouchableOpacity, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import styles from './styles/common.js'
+import styles from './styles/common.js';
+// import { Camera } from 'expo-camera';
 
 export default function App() {
   let [selectedImage, setSelectedImage] = React.useState(null);
-  
+
   let openImagePickerAsync = async () => {
-    
-    
-    let pickerResult =await ImagePicker.launchImageLibraryAsync();
+
+
+    let pickerResult = await ImagePicker.launchImageLibraryAsync();
     if (pickerResult.cancelled === true) {
       return;
     }
-   
+
     setSelectedImage({ localUri: pickerResult.uri });
-    
-    
+
+
   };
 
   let uploadVedio = () => {
     let formData = new FormData();
-    
+
     fetch('http://115.154.137.47:8080/souldancer/uploadvideo', {
       method: 'POST',
       headers: {
@@ -36,7 +37,7 @@ export default function App() {
       });
       console.log(res)
     }).catch((error) => {
-      Alert.alert("上传成功");
+      Alert.alert("上传失败");
       console.error('error', error)
     });
   }
@@ -54,8 +55,9 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      
       <Text style={styles.instructions}>
-        Please picke a Video from your device
+        Please pick a Video from your device
       </Text>
       <TouchableOpacity onPress={openImagePickerAsync} style={styles.button}>
         <Text style={styles.buttonText}>Pick a Video</Text>
